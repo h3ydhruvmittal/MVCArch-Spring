@@ -2,10 +2,9 @@ package com.h3ydhruv.springbootwebtutorial.springbootwebtutorial.controllers;
 
 import com.h3ydhruv.springbootwebtutorial.springbootwebtutorial.dto.EmployeeDTO;
 import com.h3ydhruv.springbootwebtutorial.springbootwebtutorial.entities.EmployeeEntity;
-import com.h3ydhruv.springbootwebtutorial.springbootwebtutorial.repositories.EmployeeRepositories;
+import com.h3ydhruv.springbootwebtutorial.springbootwebtutorial.services.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 
@@ -18,37 +17,37 @@ public class EmployeeController {
 //        return "Secret Message: asjb13813@@!$~adq2";
 //    }
     
-    private final EmployeeRepositories employeeRepositories;
+    private final EmployeeService employeeService;
     
-    public EmployeeController(EmployeeRepositories employeeRepositories) {
-        this.employeeRepositories = employeeRepositories;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
+    
     
     /**Get Employee Details using id, employee structure defined in EmployeeDTO
      * Using @PathVariable here to pass the parameter from URL to logic
      * Use it when the parameter is mandatory **/
     
     @GetMapping("/{employeeId}")
-    public EmployeeEntity getEmployeeById(@PathVariable Long id){
-        //return new EmployeeDTO(id,"Dhruv","test@email.com", 24,LocalDate.of(2023,11,21),true);
-        return employeeRepositories.findById(id).orElse(null);
+    public EmployeeDTO getEmployeeById(@PathVariable Long id){
+        return employeeService.getEmployeeById(id);
     }
     
     /**Get All Employees details based on some sort of filtering, default will show all employees
     Using @RequestParam here to pass the optional parameters **/
     
     @GetMapping
-    public List<EmployeeEntity> getAllEmployees(@RequestParam(required = false) Integer age,
+    public List<EmployeeDTO> getAllEmployees(@RequestParam(required = false) Integer age,
                                                 @RequestParam(required = false) String sortBy){
         //return "Returning List of Employees below age: " + age + " sorted by: " + sortBy;
-        return employeeRepositories.findAll();
+        return employeeService.getAllEmployees();
     }
     
     @PostMapping
-    public EmployeeEntity createNewEmployee(@RequestBody EmployeeEntity inputEmployee){
+    public EmployeeDTO createNewEmployee(@RequestBody EmployeeDTO inputEmployee){
 //        inputEmployee.setId(100L);
 //        return inputEmployee;
-        return employeeRepositories.save(inputEmployee);
+        return employeeService.createNewEmployee(inputEmployee);
     }
     
     @PutMapping
