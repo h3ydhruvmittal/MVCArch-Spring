@@ -6,6 +6,8 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class EmployeeDTO {
     private Long id;
     private String name;
@@ -14,16 +16,4 @@ public class EmployeeDTO {
     private LocalDate dateOfJoining;
     private Boolean isActive;
     
-    public EmployeeDTO(){
-    
-    }
-    
-    public EmployeeDTO(Long id, String name, String email, Integer age, LocalDate dateOfJoining, Boolean isActive) {
-        this.isActive = isActive;
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.age = age;
-        this.dateOfJoining = dateOfJoining;
-    }
 }
