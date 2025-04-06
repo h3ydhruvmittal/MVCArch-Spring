@@ -1,7 +1,10 @@
 package com.h3ydhruv.springbootwebtutorial.springbootwebtutorial.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
