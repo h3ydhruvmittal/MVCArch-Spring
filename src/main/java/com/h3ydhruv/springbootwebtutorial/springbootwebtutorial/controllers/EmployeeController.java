@@ -1,7 +1,7 @@
 package com.h3ydhruv.springbootwebtutorial.springbootwebtutorial.controllers;
 
 import com.h3ydhruv.springbootwebtutorial.springbootwebtutorial.dto.EmployeeDTO;
-import com.h3ydhruv.springbootwebtutorial.springbootwebtutorial.entities.EmployeeEntity;
+import com.h3ydhruv.springbootwebtutorial.springbootwebtutorial.exceptions.ResourceNotFoundException;
 import com.h3ydhruv.springbootwebtutorial.springbootwebtutorial.services.EmployeeService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 
@@ -38,7 +39,7 @@ public class EmployeeController {
         Optional<EmployeeDTO> employeeDTO = employeeService.getEmployeeById(employeeId);
         return employeeDTO
                 .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+                .orElseThrow(( ) -> new ResourceNotFoundException("Employee Not Found with id: " + employeeId));
     }
     
     /**Get All Employees details based on some sort of filtering, default will show all employees
